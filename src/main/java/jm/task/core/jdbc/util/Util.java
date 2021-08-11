@@ -10,7 +10,7 @@ public class Util {
     private final String HOST = "jdbc:mysql://localhost:3306/mydbtest?useSSL=false";
     private final String USERNAME = "root";
     private final String PASSWORD = "rootroot";
-    
+
     public Connection getConnection() {
         if (connection == null) {
             try {
