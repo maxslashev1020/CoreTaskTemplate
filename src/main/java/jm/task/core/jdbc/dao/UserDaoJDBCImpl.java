@@ -12,23 +12,18 @@ public class UserDaoJDBCImpl implements UserDao  {
     Util util = new Util();
     Statement statement = util.getConnection().createStatement();
     PreparedStatement preparedStatement = null;
-    private static final String INSERT_NEW = "INSERT INTO `mydbtest`.`User`(name, lastname, age) VALUES(?, ?, ?);";
-    private static final String CREATE_TABLE = "CREATE TABLE `mydbtest`.`User` (\n" +
-            "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
-            "  `name` VARCHAR(45) NOT NULL,\n" +
-            "  `lastname` VARCHAR(45) NOT NULL,\n" +
-            "  `age` INT NOT NULL,\n" +
-            "  PRIMARY KEY (`id`));";
-    private static final String DROP_TABLE = "DROP TABLE `mydbtest`.`User`;";
-    private static final String REMOVE_USER_BY_ID = "DELETE FROM `mydbtest`.`User` WHERE(`id` = ?)";
-    private static final String GET_ALL_USERS = "SELECT * FROM `mydbtest`.`User`;";
-    private static final String DELETE_ALL_USERS = "DELETE FROM `mydbtest`.`User`;";
     public UserDaoJDBCImpl() throws ClassNotFoundException,
             SQLException {
 //
     }
 
     public void createUsersTable() {
+        final String CREATE_TABLE = "CREATE TABLE `mydbtest`.`User` (\n" +
+                "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
+                "  `name` VARCHAR(45) NOT NULL,\n" +
+                "  `lastname` VARCHAR(45) NOT NULL,\n" +
+                "  `age` INT NOT NULL,\n" +
+                "  PRIMARY KEY (`id`));";
         try {
             statement.execute(CREATE_TABLE);
         } catch (SQLException e) {
@@ -37,6 +32,7 @@ public class UserDaoJDBCImpl implements UserDao  {
     }
 
     public void dropUsersTable() {
+        final String DROP_TABLE = "DROP TABLE `mydbtest`.`User`;";
         try {
             statement.execute(DROP_TABLE);
         } catch (SQLException e) {
@@ -45,6 +41,7 @@ public class UserDaoJDBCImpl implements UserDao  {
     }
 
     public void saveUser(String name, String lastName, byte age) {
+        final String INSERT_NEW = "INSERT INTO `mydbtest`.`User`(name, lastname, age) VALUES(?, ?, ?);";
         try {
             preparedStatement = util.getConnection().prepareStatement(INSERT_NEW);
             preparedStatement.setString(1, name);
@@ -58,6 +55,7 @@ public class UserDaoJDBCImpl implements UserDao  {
     }
 
     public void removeUserById(long id) {
+        final String REMOVE_USER_BY_ID = "DELETE FROM `mydbtest`.`User` WHERE(`id` = ?)";
         try {
             preparedStatement = util.getConnection().prepareStatement(REMOVE_USER_BY_ID);
             preparedStatement.setLong(1, id);
@@ -68,6 +66,7 @@ public class UserDaoJDBCImpl implements UserDao  {
     }
 
     public List<User> getAllUsers() {
+        final String GET_ALL_USERS = "SELECT * FROM `mydbtest`.`User`;";
         List<User> list = new ArrayList<User>();
         try {
             ResultSet resultSet = statement.executeQuery(GET_ALL_USERS);
@@ -87,6 +86,7 @@ public class UserDaoJDBCImpl implements UserDao  {
     }
 
     public void cleanUsersTable() {
+        final String DELETE_ALL_USERS = "DELETE FROM `mydbtest`.`User`;";
         try {
             statement.execute(DELETE_ALL_USERS);
         } catch (SQLException e) {
