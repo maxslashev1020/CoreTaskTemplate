@@ -20,10 +20,10 @@ public class Main {
         User user = new User();
         UserDaoJDBCImpl userDaoJDBC = new UserDaoJDBCImpl();
         //userDaoJDBC.createUsersTable();
-        //userDaoJDBC.saveUser("Max", "Slashchev", (byte) 23);
-        //userDaoJDBC.saveUser("Ivan", "Slashchev", (byte) 43);
-        //userDaoJDBC.saveUser("Oleg", "Nikiforov", (byte) 29);
-        //userDaoJDBC.saveUser("Aleksey", "Romanov", (byte) 20);
+//        userDaoJDBC.saveUser("Max", "Slashchev", (byte) 23);
+//        userDaoJDBC.saveUser("Ivan", "Slashchev", (byte) 43);
+//        userDaoJDBC.saveUser("Oleg", "Nikiforov", (byte) 29);
+//        userDaoJDBC.saveUser("Aleksey", "Romanov", (byte) 20);
         //userDaoJDBC.getAllUsers();
         //userDaoJDBC.cleanUsersTable();
         //userDaoJDBC.dropUsersTable();

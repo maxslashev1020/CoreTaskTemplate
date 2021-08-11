@@ -12,17 +12,17 @@ public class UserDaoJDBCImpl implements UserDao  {
     Util util = new Util();
     Statement statement = util.getConnection().createStatement();
     PreparedStatement preparedStatement = null;
-    public static final String INSERT_NEW = "INSERT INTO `mydbtest`.`User`(name, lastname, age) VALUES(?, ?, ?);";
-    public static final String CREATE_TABLE = "CREATE TABLE `mydbtest`.`User` (\n" +
+    private static final String INSERT_NEW = "INSERT INTO `mydbtest`.`User`(name, lastname, age) VALUES(?, ?, ?);";
+    private static final String CREATE_TABLE = "CREATE TABLE `mydbtest`.`User` (\n" +
             "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
             "  `name` VARCHAR(45) NOT NULL,\n" +
             "  `lastname` VARCHAR(45) NOT NULL,\n" +
             "  `age` INT NOT NULL,\n" +
             "  PRIMARY KEY (`id`));";
-    public static final String DROP_TABLE = "DROP TABLE `mydbtest`.`User`;";
-    public static final String REMOVE_USER_BY_ID = "DELETE FROM `mydbtest`.`User` WHERE(`id` = ?)";
-    public static final String GET_ALL_USERS = "SELECT * FROM `mydbtest`.`User`;";
-    public static final String DELETE_ALL_USERS = "DELETE FROM `mydbtest`.`User`;";
+    private static final String DROP_TABLE = "DROP TABLE `mydbtest`.`User`;";
+    private static final String REMOVE_USER_BY_ID = "DELETE FROM `mydbtest`.`User` WHERE(`id` = ?)";
+    private static final String GET_ALL_USERS = "SELECT * FROM `mydbtest`.`User`;";
+    private static final String DELETE_ALL_USERS = "DELETE FROM `mydbtest`.`User`;";
     public UserDaoJDBCImpl() throws ClassNotFoundException,
             SQLException {
 //
@@ -68,21 +68,22 @@ public class UserDaoJDBCImpl implements UserDao  {
     }
 
     public List<User> getAllUsers() {
-        User user = new User();
+        List<User> list = new ArrayList<User>();
         try {
             ResultSet resultSet = statement.executeQuery(GET_ALL_USERS);
-            List<User> list = new ArrayList<>();
             while (resultSet.next()) {
-                user.setId(resultSet.getLong(1));
-                user.setName(resultSet.getString(2));
-                user.setLastName(resultSet.getString(3));
-                user.setAge(resultSet.getByte(4));
-                System.out.println(user);
+                Long id = resultSet.getLong(1);
+                String name = resultSet.getString(2);
+                String lastName = resultSet.getString(3);
+                byte age = resultSet.getByte(4);
+                User user = new User(id, name, lastName, age);
+                list.add(user);
+                System.out.println(list);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return list;
     }
 
     public void cleanUsersTable() {
